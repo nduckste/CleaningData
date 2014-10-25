@@ -14,21 +14,11 @@ The data for the above is located at https://d396qusza40orc.cloudfront.net/getda
 1. Copy the script to the working directory (Refer `getwd()` and `setwd()`)
 2. Also download the data set from [https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip](https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip) to the working directory
 3. At the R prompt (R Studio) execute command - source("./run_analysis.R") 
-4. On executing one should see following messages on the screen
+4. On executing one should see following messages on the screen. This is also indicative of the process flow of the script.
 
-> 	[1] "Loading Train data...."
-> 	[1] "Completed Loading Train data"
-> 	[1] "Loading Test data...."
-> 	[1] " Completed Loading Test data"
-> 	[1] " Merging Train and Test data...."
-> 	[1] " COMPLETED Merging Train and Test data"
-> 	[1] "Writing Final Tidy dataset to TidyDataSet.txt file"
-
-## A Brief Process Flow ##
-1. Load the Train and Test data
-2. Rename column of the Train/Test subject data as well as Activity data
-3. Replace Activity Id with Activity Label
-4. Merge the Train and Test data to form a single dataset
-5. Filter the columns associated with mean and std (standard deviation)
-6. Transform the dataset to form a tidy dataset.
-7. Generate the tidy dataset file - TidyDataSet.txt
+- Loading feature and activity labels
+- Loading Train data....
+- Loading Test data....
+- Merging Train and Test data....
+- Creating meanData and adding descriptive variables to column names
+- Writing dataset to meanData.txt file
