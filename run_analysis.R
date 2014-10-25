@@ -51,7 +51,7 @@ names(xtestsub) <- c("Subject")
 ## Replace ytest data's column name as Activity
 names(ytest) <- c("Activity")
 
-print(" Merging Train and Test data....")
+print("Merging Train and Test data....")
 ##Merge Test data
 newTestData <- cbind(xtestsub,ytest,xtest)
 
