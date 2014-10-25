@@ -1,7 +1,9 @@
 library(reshape2)
 # setwd("C:/Coursera/Course3-DataCleaning")
 ## Load data from the source
-datalocation <- "./UCIHARDataset"
+datalocation <- "./UCI HAR Dataset"
+
+print("Loading feature and activity labels")
 
 ## Load features/Columns
 cols <- read.table(paste(datalocation,"/features.txt", sep=""), sep="", stringsAsFactors=FALSE)[,2]
@@ -10,6 +12,7 @@ cols <- read.table(paste(datalocation,"/features.txt", sep=""), sep="", stringsA
 activityLabels <- read.table(paste(datalocation,"/activity_labels.txt", sep = ""), sep="", stringsAsFactors=FALSE)
 names(activityLabels) <- c("Activity","ActivityDesc")
 
+print("Loading Train data....")
 ## Load Train data
 xtrain <- read.table(paste(datalocation,"/train/X_train.txt", sep = ""), sep="", stringsAsFactors=FALSE)
 xtrainsub <- read.table(paste(datalocation,"/train/subject_train.txt", sep = ""), sep="", stringsAsFactors=FALSE)
@@ -30,6 +33,7 @@ xtrain <- xtrain[,c(grep("mean|std",tolower(cols)))]
 #Merge Train data
 newTrainData <- cbind(xtrainsub,ytrain,xtrain)
 
+print("Loading Test data....")
 ## Load Test data
 xtest <- read.table(paste(datalocation,"/test/X_test.txt", sep = ""), sep="", stringsAsFactors=FALSE)
 xtestsub <- read.table(paste(datalocation,"/test/subject_test.txt", sep = ""), sep="", stringsAsFactors=FALSE)
@@ -47,6 +51,7 @@ names(xtestsub) <- c("Subject")
 ## Replace ytest data's column name as Activity
 names(ytest) <- c("Activity")
 
+print(" Merging Train and Test data....")
 ##Merge Test data
 newTestData <- cbind(xtestsub,ytest,xtest)
 
@@ -65,6 +70,7 @@ if (all(colSums(is.na(newData))==0) == FALSE) {
   stop(errmsg)
 }
 
+print("Creating meanData and adding descriptive variables to column names")
 #Average of each variable for each activity and each subject
 meltData <- melt(newData,id.vars=c("ActivityDesc","Subject"),
                  measure.vars=names(newData[,4:89]))
@@ -77,5 +83,5 @@ names(meanData) <- sub("(","",names(meanData),fixed=TRUE)
 names(meanData) <- sub(")-","",names(meanData),fixed=TRUE)
 names(meanData) <- sub(")","",names(meanData),fixed=TRUE) 
 
-
+print("Writing dataset to meanData.txt file")
 write.table(meanData,file="meanData.txt",row.names=FALSE)
