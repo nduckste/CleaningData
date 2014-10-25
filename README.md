@@ -16,9 +16,9 @@ The data for the above is located at https://d396qusza40orc.cloudfront.net/getda
 3. At the R prompt (R Studio) execute command - source("./run_analysis.R") 
 4. On executing one should see following messages on the screen. This is also indicative of the process flow of the script.
 
-- Loading feature and activity labels
-- Loading Train data....
-- Loading Test data....
-- Merging Train and Test data....
-- Creating meanData and adding descriptive variables to column names
+- [1] "Loading feature and activity labels"
+- [1] "Loading Train data...."
+- [1] "Loading Test data...."
+- [1] "Merging Train and Test data...."
+- [1] "Creating meanData and adding descriptive variables to column names"
 - Writing dataset to meanData.txt file
