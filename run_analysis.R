@@ -77,11 +77,14 @@ meltData <- melt(newData,id.vars=c("ActivityDesc","Subject"),
 meanData <- dcast(meltData, ActivityDesc + Subject ~ variable,mean)
 
 #Create description variable names
-names(meanData) <- sub("()","",names(meanData))
-names(meanData) <- sub(",","_",names(meanData),fixed=TRUE) 
-names(meanData) <- sub("(","",names(meanData),fixed=TRUE) 
-names(meanData) <- sub(")-","",names(meanData),fixed=TRUE)
-names(meanData) <- sub(")","",names(meanData),fixed=TRUE) 
+names(meanData) <- gsub("()","",names(meanData))
+names(meanData) <- gsub(",","_",names(meanData),fixed=TRUE) 
+names(meanData) <- gsub("(","",names(meanData),fixed=TRUE) 
+names(meanData) <- gsub(")-","",names(meanData),fixed=TRUE)
+names(meanData) <- gsub(")","",names(meanData),fixed=TRUE) 
 
 print("Writing dataset to meanData.txt file")
 write.table(meanData,file="meanData.txt",row.names=FALSE)
+
+#print out names of variables for code book.
+# write.table(names(meanData),file="",row.names=FALSE)
