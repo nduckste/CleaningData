@@ -21,4 +21,4 @@ The data for the above is located at https://d396qusza40orc.cloudfront.net/getda
 - [1] "Loading Test data...."
 - [1] "Merging Train and Test data...."
 - [1] "Creating meanData and adding descriptive variables to column names"
-- Writing dataset to meanData.txt file
+- [1] "Writing dataset to meanData.txt file"
