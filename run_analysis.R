@@ -71,17 +71,45 @@ if (all(colSums(is.na(newData))==0) == FALSE) {
 }
 
 print("Creating meanData and adding descriptive variables to column names")
+
 #Average of each variable for each activity and each subject
 meltData <- melt(newData,id.vars=c("ActivityDesc","Subject"),
                  measure.vars=names(newData[,4:89]))
 meanData <- dcast(meltData, ActivityDesc + Subject ~ variable,mean)
 
 #Create description variable names
+names(meanData) <- tolower(names(meanData))
+names(meanData) <- gsub("freq","",names(meanData))
+names(meanData) <- gsub("anglet","angletime",names(meanData))
+names(meanData) <- gsub("bodybody","body",names(meanData))
+names(meanData) <- gsub("mag","magnitude",names(meanData))
+names(meanData) <- gsub("acc","acceleration",names(meanData))
 names(meanData) <- gsub("()","",names(meanData))
-names(meanData) <- gsub(",","_",names(meanData),fixed=TRUE) 
+names(meanData) <- gsub(",","-",names(meanData),fixed=TRUE) 
 names(meanData) <- gsub("(","",names(meanData),fixed=TRUE) 
 names(meanData) <- gsub(")-","",names(meanData),fixed=TRUE)
 names(meanData) <- gsub(")","",names(meanData),fixed=TRUE) 
+
+#split names(meanData) at "." -- there aren't any.
+#just need a list
+splitNames <- strsplit(names(meanData),"\\.")
+
+#create a function to replace
+#   the beginning "t" with "time" for variables that begin with "t"
+#   the beginning "f" with "frequency" for variables that begin with "f"
+
+replacePrefix <- function(x) {
+  if (grepl("^t",x)==TRUE) {
+    x <- sub("t","time",x,fixed=TRUE)
+  }
+  else if (grepl("^f",x)==TRUE) {
+    x <- sub("f","frequency",x,fixed=TRUE)
+  }
+  else {
+    x <- x
+  }
+}
+names(meanData) <- sapply(splitNames,replacePrefix)
 
 print("Writing dataset to meanData.txt file")
 write.table(meanData,file="meanData.txt",row.names=FALSE)
